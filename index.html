@@ -733,7 +733,7 @@ list-style:none;
 }
 
 .x-fallback{
-  display: none;
+  display: block;
 }
 
 
@@ -1379,5 +1379,26 @@ document.getElementById('buyBtnFooter')?.addEventListener('click', () => buy("fo
 
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+  <script>
+  window.addEventListener("load", () => {
+    const wrap = document.querySelector(".x-wrap");
+    const fb = document.querySelector(".x-fallback");
+    if (!wrap || !fb) return;
+
+    // check a few times because X loads async
+    let tries = 0;
+    const timer = setInterval(() => {
+      const iframe = wrap.querySelector("iframe");
+      if (iframe) {
+        fb.style.display = "none";
+        clearInterval(timer);
+      }
+      tries++;
+      if (tries > 10) clearInterval(timer); // ~10s
+    }, 1000);
+  });
+</script>
+
+  
 </body>
 </html>
