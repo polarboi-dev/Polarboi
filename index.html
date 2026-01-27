@@ -871,6 +871,14 @@ list-style:none;
   scroll-margin-top: 90px;
 }
 
+/* X embed fallback logic */
+.x-wrap > a{
+  display: none;
+}
+
+.x-fallback{
+  display: block;
+}
 
 
 
@@ -1388,13 +1396,12 @@ document.getElementById('buyBtnFooter')?.addEventListener('click', () => buy("fo
 
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-  <script>
+<script>
   window.addEventListener("load", () => {
     const wrap = document.querySelector(".x-wrap");
     const fb = document.querySelector(".x-fallback");
     if (!wrap || !fb) return;
 
-    // check a few times because X loads async
     let tries = 0;
     const timer = setInterval(() => {
       const iframe = wrap.querySelector("iframe");
@@ -1403,7 +1410,7 @@ document.getElementById('buyBtnFooter')?.addEventListener('click', () => buy("fo
         clearInterval(timer);
       }
       tries++;
-      if (tries > 10) clearInterval(timer); // ~10s
+      if (tries > 12) clearInterval(timer); // ~12s
     }, 1000);
   });
 </script>
