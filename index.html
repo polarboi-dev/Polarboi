@@ -1,0 +1,1392 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Memelik ja viraalne landing page (hero + legend + roadmap + CTA)." />
+  <title>POLARBOI — meme landing</title>
+
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Chunky + readable -->
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#3b1f6b;
+      --bg2:#f59cc6;
+      --ice1:#cfe9ff;
+      --ice2:#7bb7ff;
+      --text:#f7fbff;
+      --muted:#cfe0ff;
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --stroke: rgba(180,220,255,.35);
+      --glass: rgba(25, 22, 60, .35);
+      --glass2: rgba(10, 8, 30, .30);
+      --radius: 22px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 30% 0%, rgba(255,210,255,.35), transparent 60%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(120,190,255,.25), transparent 55%),
+                  linear-gradient(180deg, #1a1036 0%, #2b1550 35%, #1a0f33 100%);
+      overflow-x:hidden;
+    }
+
+    /* Background layer (parallax) */
+    .bg{
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.55)),
+        url("assets/bg.jpg") center/cover no-repeat;
+      transform: translateZ(0);
+      filter:saturate(1.1) contrast(1.05);
+      z-index:-3;
+    }
+    .grain{
+      position:fixed;
+      inset:-20%;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.08;
+      z-index:-2;
+      pointer-events:none;
+      animation: drift 18s linear infinite;
+    }
+    @keyframes drift { from{ transform:translate3d(-2%, -2%, 0);} to{ transform:translate3d(2%, 2%, 0);} }
+
+    .wrap{
+      width:min(1150px, 92vw);
+      margin:0 auto;
+      padding: 28px 0 80px;
+    }
+
+    /* Top bar */
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 10px 14px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(10, 8, 30, .25);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 180px;
+    }
+
+ .dot{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background: url("assets/logo.png") center/contain no-repeat;
+  background-color: transparent;
+  filter: drop-shadow(0 0 6px rgba(255,215,120,.6))
+          drop-shadow(0 0 12px rgba(255,215,120,.4));
+  transition: transform .25s ease, filter .25s ease;
+  animation: logoPulse 4s ease-in-out infinite;
+  box-shadow: 0 0 22px rgba(255,215,120,.75),
+              inset 0 0 8px rgba(255,255,255,.45);
+}
+
+@keyframes logoPulse{
+  0%,100%{
+    filter: drop-shadow(0 0 6px rgba(255,215,120,.55))
+            drop-shadow(0 0 12px rgba(255,215,120,.35));
+  }
+  50%{
+    filter: drop-shadow(0 0 10px rgba(255,215,120,.75))
+            drop-shadow(0 0 18px rgba(255,215,120,.5));
+  }
+}
+
+    .brand b{ letter-spacing:.6px; }
+    .nav{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .nav a{
+      color: var(--muted);
+      text-decoration:none;
+      font-weight:700;
+      font-size:14px;
+      padding: 10px 10px;
+      border-radius: 12px;
+      transition: .2s ease;
+    }
+    .nav a:hover{ color:#fff; background: rgba(255,255,255,.07); }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:flex-end;
+      min-width: 180px;
+    }
+
+    /* Meme button */
+    .btn{
+      position:relative;
+      border:none;
+      cursor:pointer;
+      color:#0b0a14;
+      font-weight:900;
+      letter-spacing:.4px;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #e6f6ff, #86c7ff);
+      box-shadow: 0 16px 40px rgba(0,0,0,.35), inset 0 0 0 2px rgba(255,255,255,.35);
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+      white-space:nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px) scale(1.01); filter:saturate(1.07); }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+
+    .btn.ghost{
+      background: rgba(255,255,255,.08);
+      color: #fff;
+      box-shadow: none;
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    .iconbtn{
+      width:42px;height:42px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10, 8, 30, .25);
+      backdrop-filter: blur(10px);
+      display:grid; place-items:center;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .iconbtn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
+    .icon{
+      width:18px;height:18px; opacity:.9;
+      fill:#fff;
+    }
+
+    /* HERO */
+    .hero{
+      margin-top: 18px;
+      border-radius: calc(var(--radius) + 10px);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background: radial-gradient(800px 400px at 30% 15%, rgba(255,190,230,.35), transparent 60%),
+                  radial-gradient(700px 360px at 80% 25%, rgba(120,190,255,.28), transparent 60%);
+      pointer-events:none;
+      z-index:0;
+    }
+    .hero-inner{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 22px;
+      padding: 34px 28px 26px;
+      align-items:center;
+    }
+
+    .title{
+      font-family: "Luckiest Guy", system-ui;
+      font-size: clamp(44px, 6vw, 76px);
+      margin:0 0 8px;
+      letter-spacing: 1px;
+      line-height: .95;
+      text-shadow:
+        0 3px 0 rgba(0,0,0,.25),
+        0 18px 40px rgba(0,0,0,.35);
+    }
+    .subtitle{
+      margin:0 0 18px;
+margin-left: 137px;
+      color: var(--muted);
+      font-weight:800;
+      letter-spacing:.6px;
+      text-transform: uppercase;
+      font-size: 14px;
+text-shadow:
+    0 1px 0 rgba(0,0,0,.40),
+    0 8px 18px rgba(0,0,0,.40);
+    }
+    .hero-copy{
+      font-size: 16px;
+      color: rgba(245,250,255,.92);
+      max-width: 52ch;
+      line-height: 1.55;
+      margin: 0 0 18px;
+    }
+
+    .cta-row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .pill{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(10, 8, 30, .25);
+      color: var(--muted);
+      font-weight:700;
+      font-size: 13px;
+      margin-top: 16px;
+      width: fit-content;
+    }
+    .pill b{ color:#fff; }
+    .mono{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 12px;
+      opacity:.95;
+    }
+    .copy{
+      margin-left:8px;
+      border:none;
+      border-radius: 10px;
+      padding: 8px 10px;
+      background: rgba(255,255,255,.10);
+      color:#fff;
+      cursor:pointer;
+      font-weight:800;
+    }
+
+    .hero-art{
+      position:relative;
+      height: 320px;
+      display:grid;
+      place-items:end;
+    }
+    .hero-art img{
+      width:min(270px, 100%);
+      height:auto;
+ margin-right: 110px;
+      filter: drop-shadow(0 24px 50px rgba(0,0,0,.45));
+      transform-origin: 60% 80%;
+      animation: floaty 4.8s ease-in-out infinite;
+    }
+.hero-art{
+  margin-top: -5px;
+}
+
+    @keyframes floaty{
+      0%,100%{ transform: translateY(-30px) rotate(-.3deg); }
+      50%{ transform: translateY(-40px) rotate(.5deg); }
+    }
+
+    /* Section headings */
+    .section{
+      margin-top: 26px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10, 8, 30, .20);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 50px rgba(0,0,0,.28);
+      overflow:hidden;
+    }
+    .section-hd{
+      padding: 22px 22px 14px;
+      text-align:center;
+    }
+    .h2{
+      margin:0;
+      font-family: "Luckiest Guy", system-ui;
+      font-size: clamp(28px, 4vw, 44px);
+      letter-spacing: .8px;
+      text-shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+    .hint{
+      margin: 8px auto 0;
+      max-width: 70ch;
+      color: rgba(230,245,255,.85);
+      font-weight: 700;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    /* LEGEND cards */
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      padding: 0 18px 18px;
+    }
+    .card{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      overflow:hidden;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      position:relative;
+    }
+.card,
+.card:visited{
+  color: inherit;
+  text-decoration: none;
+}
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(400px 200px at 30% 20%, rgba(120,190,255,.18), transparent 60%);
+      pointer-events:none;
+    }
+    .card img{
+      width:100%;
+      height: 315px;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.05) contrast(1.02);
+    }
+    .card-bd{
+      padding: 14px 14px 16px;
+      position:relative;
+      z-index:1;
+    }
+    .card-title{
+      margin:0 0 8px;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing:.6px;
+      font-size: 14px;
+    }
+    .card-text{
+      margin:0;
+      color: rgba(235,245,255,.88);
+      line-height:1.5;
+      font-weight:600;
+      font-size: 13px;
+    }
+    .tag{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      margin-top: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(245,250,255,.92);
+      font-weight:800;
+      font-size:12px;
+    }
+
+    /* ROADMAP */
+
+    .road{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 14px;
+      padding: 0 18px 18px;
+      align-items:stretch;
+    }
+
+    .stats{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      padding: 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns: repeat(2,1fr);
+      gap: 10px;
+    }
+
+    .stat{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10, 8, 30, .20);
+      padding: 12px 12px 10px;
+    }
+
+    .stat small{
+      display:block;
+      color: var(--muted);
+      font-weight: 900;
+      letter-spacing:.6px;
+      text-transform: uppercase;
+      font-size: 11px;
+      margin-bottom: 6px;
+    }
+
+    .stat b{
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+
+    .steps{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.05);
+      padding: 14px;
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .steps::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 300px at 70% 20%, rgba(255,190,230,.22), transparent 60%);
+      pointer-events:none;
+    }
+
+    .step{
+      position:relative;
+      z-index:1;
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      padding: 18px 18px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(10, 8, 30, .18);
+      margin-bottom: 0;
+    }
+
+    .step:last-child{ margin-bottom:0; }
+    .num{
+      width:38px;height:38px;border-radius: 14px;
+      display:none; place-items:center;
+      font-weight: 1000;
+      color:#0b0a14;
+      background: linear-gradient(180deg, #e6f6ff, #86c7ff);
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.35);
+    }
+
+    .step b{ display:block; margin: 0 0 4px; 
+}
+
+    .step ul{
+      margin: 10px 0 0;
+      padding-left: 0px;
+      color: rgba(235,245,255,.88);
+      font-weight: 650;
+      line-height:1.45;
+      font-size: 13px;
+list-style:none;
+    }
+
+.step li{
+  margin: 6px 0;
+  line-height: 1.35;
+}
+
+/* 2-column grid */
+#roadmap .steps{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: start;
+  
+}
+
+@media (max-width: 900px){
+  #roadmap .steps{
+    grid-template-columns: 1fr;
+  }
+  #roadmap .step:nth-child(even){
+    margin-top: 0;
+  }
+}
+
+/* make cards darker / more readable */
+#roadmap .step{
+  background: rgba(10, 8, 30, .32) !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  box-shadow: 0 18px 50px rgba(0,0,0,.28) !important;
+  padding: 18px 18px !important;
+}
+
+/* titles */
+#roadmap .step b{
+  display: block;
+  font-size: 16px;
+  letter-spacing: .2px;
+  margin-bottom: 10px;
+}
+
+/* list spacing + remove default bullets */
+#roadmap .step ul{
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+#roadmap .step li{
+  margin: 7px 0;
+  line-height: 1.35;
+  color: rgba(245,250,255,.92);
+}
+
+/* optional: add subtle dash instead of bullet */
+#roadmap .step li{
+  position: relative;
+  padding-left: 14px;
+}
+
+/* notes */
+#roadmap .road-note{
+  margin-top: 10px;
+  opacity: .85;
+}
+
+#roadmap .steps{
+  max-width: 980px;   /* proovi 900–1040 */
+  margin: 0 auto;
+}
+
+@media (max-width:900px){
+  #roadmap .step{
+    transform: none;
+  }
+}
+/* kogu roadmapi kaart center */
+#roadmap .step{
+  text-align: center;
+}
+
+/* pealkiri */
+#roadmap .step b{
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* list ise jääb vasakule (parem loetavus) */
+#roadmap .step ul{
+  text-align: left;
+  display: inline-block; /* optiline keskjoondus */
+  margin: 0 auto;
+}
+
+/* listi read */
+#roadmap .step li{
+  text-align: left;
+}
+/* ===== ROADMAP (clean) ===== */
+
+#roadmap .steps{
+  /* tee steps lihtsalt konteineriks (mitte eraldi “kaart”) */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  max-width: 980px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+/* zig-zag: parempoolne veerg natuke allapoole */
+#roadmap .step:nth-child(even){
+  margin-top: 18px;
+}
+
+/* kaartide stiil */
+#roadmap .step{
+  background: rgba(10, 8, 30, .32);
+  border: 1px solid rgba(255,255,255,.14);
+  box-shadow: 0 18px 50px rgba(0,0,0,.28);
+  padding: 18px;
+  border-radius: 16px;
+
+  text-align: center; /* pealkiri keskel */
+}
+
+/* pealkiri */
+#roadmap .step b{
+  display: block;
+  font-size: 16px;
+  margin-bottom: 12px;
+}
+
+/* list optiliselt keskele, aga loetavus left */
+#roadmap .step ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  display: inline-block;
+}
+
+#roadmap .step li{
+  position: relative;
+  padding-left: 14px;
+  margin: 7px 0;
+  line-height: 1.35;
+  color: rgba(245,250,255,.92);
+}
+
+/* õrn dash */
+#roadmap .step li::before{
+  content: "—";
+  position: absolute;
+  left: 0;
+  opacity: .45;
+}
+
+/* note read */
+#roadmap .road-note{
+  margin-top: 12px;
+  opacity: .75;
+}
+
+/* mobile: üks veerg */
+@media (max-width: 900px){
+  #roadmap .steps{ grid-template-columns: 1fr; }
+  #roadmap .step:nth-child(even){ margin-top: 0; }
+}
+
+
+
+
+    /* FOOTER CTA */
+    .cta{
+      margin-top: 26px;
+      border-radius: calc(var(--radius) + 8px);
+      border: 1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .cta-inner{
+      padding: 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      flex-wrap:wrap;
+    }
+    .cta-title{
+      margin:0;
+      font-family:"Luckiest Guy", system-ui;
+      font-size: clamp(22px, 3.2vw, 34px);
+      letter-spacing:.8px;
+      text-shadow: 0 18px 40px rgba(0,0,0,.35);
+    }
+    .fine{
+      padding: 0 22px 18px;
+      color: rgba(210,230,255,.85);
+      font-size: 12px;
+      font-weight: 650;
+      line-height:1.5;
+    }
+
+    /* Small “meme” animations */
+    .wiggle{ animation: wiggle 2.8s ease-in-out infinite; }
+    @keyframes wiggle{
+      0%,100%{ transform: rotate(-.5deg) }
+      50%{ transform: rotate(.8deg) }
+    }
+    .pulse{ animation: pulse 1.6s ease-in-out infinite; }
+    @keyframes pulse{
+      0%,100%{ transform: translateY(0) scale(1) }
+      50%{ transform: translateY(-2px) scale(1.02) }
+    }
+
+    /* Responsive */
+    @media (max-width: 930px){
+      .hero-inner{ grid-template-columns: 1fr; }
+      .hero-art{ height:auto; place-items:center; padding-bottom: 8px; }
+      .cards{ grid-template-columns: 1fr; }
+      .road{ grid-template-columns: 1fr; }
+      .actions{ min-width: auto; }
+      .brand{ min-width:auto; }
+    }
+
+.x-wrap{
+  padding: 14px 18px 18px;
+  background: transparent;
+  filter: none !important;
+  backdrop-filter: none !important;
+  transform: none !important;
+}
+
+.x-fallback{
+  margin: 20px 18px 22px;
+  padding: 22px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.08),
+    rgba(10,8,30,.18)
+  );
+  text-align: center;
+  box-shadow: 0 18px 45px rgba(0,0,0,.25);
+}
+
+.x-fallback p{
+  margin: 0 0 14px;
+  font-weight: 700;
+  color: rgba(240,248,255,.9);
+}
+
+.x-wrap > a{
+  display: none;
+}
+
+.contract-pill{
+  margin-left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(10, 8, 30, .22);
+  color: rgba(235,245,255,.92);
+  font-weight: 850;
+  font-size: 12px;
+  cursor: pointer;
+  transition: transform .12s ease, background .12s ease;
+  white-space: nowrap;
+}
+
+.contract-pill:hover{
+  transform: translateY(-1px);
+  background: rgba(255,255,255,.08);
+}
+
+.contract-label{
+  color: rgba(200,220,255,.85);
+  letter-spacing: .4px;
+}
+
+.contract-value{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-weight: 900;
+}
+
+.card--dense .card-media img{
+  transform: scale(1);
+  object-position: 50% 30%;
+}
+
+/* ===== ROADMAP: CENTER + ZIGZAG ===== */
+
+#roadmap .roadmap-flat{
+  position: relative;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 8px 0 6px;
+}
+
+/* keskjoon */
+#roadmap .roadmap-flat::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top: 6px;
+  bottom: 6px;
+  width:1px;
+  transform: translateX(-.5px);
+  background: rgba(255,255,255,.14);
+}
+
+/* üks “plokk” */
+#roadmap .rm-item{
+  width: min(520px, 100%);
+  margin: 18px auto;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(10, 8, 30, .18);
+  box-shadow: 0 18px 45px rgba(0,0,0,.22);
+}
+
+/* zig-zag nihked ümber keskjoone */
+#roadmap .rm-item:nth-child(odd){
+  transform: translateX(-140px);
+}
+#roadmap .rm-item:nth-child(even){
+  transform: translateX(140px);
+}
+
+/* pealkiri + list */
+#roadmap .rm-item h3{
+  margin: 0 0 10px;
+  font-size: 16px;
+  letter-spacing: .6px;
+  font-weight: 900;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+#roadmap .rm-item ul{
+  margin: 0;
+  padding-left: 18px; /* jätab bulletid viisakaks */
+}
+
+#roadmap .rm-item li{
+  margin: 6px 0;
+  line-height: 1.35;
+  color: rgba(245,250,255,.92);
+}
+
+/* note */
+#roadmap .rm-item .roadmap-note{
+  margin: 12px 0 0;
+  opacity: .8;
+}
+
+/* mobiilis: võta zig-zag maha */
+@media (max-width: 900px){
+  #roadmap .roadmap-flat::before{ display:none; }
+  #roadmap .rm-item{ transform: none; }
+}
+
+/* Fix anchor scroll under sticky top bar */
+.section{
+  scroll-margin-top: 90px;
+}
+
+
+
+
+
+
+  </style>
+</head>
+
+<body>
+  <div class="bg" id="bg"></div>
+  <div class="grain"></div>
+
+  <div class="wrap">
+
+    <!-- TOP -->
+    <div class="top">
+      <div class="brand">
+        <span class="dot"></span>
+        <b>$POLARBOI v2 </b>
+
+ <button class="contract-pill" id="contractCopy" type="button">
+    <span class="contract-label">CONTRACT:</span>
+    <span class="contract-value" id="contractValue">feb 2</span>
+  </button>
+
+      </div>
+
+      <nav class="nav">
+        <a href="#legend">Legend</a>
+<a href="#tokenomics">Tokenomics</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+<div class="actions">
+
+  <!-- X -->
+  <a class="iconbtn"
+     href="https://x.com/polarboi_meme"
+     target="_blank"
+     rel="noopener noreferrer"
+     title="X / Twitter"
+     aria-label="X">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M18.9 2H22l-6.8 7.8L23 22h-6.5l-5.1-6.6L5.7 22H2.6l7.4-8.5L1 2h6.7l4.6 6L18.9 2zm-1.1 18h1.7L7.7 4H5.9l11.9 16z"/>
+    </svg>
+  </a>
+
+  <!-- Telegram -->
+  <a class="iconbtn"
+     href="https://t.me/polarboi"
+     target="_blank"
+     rel="noopener noreferrer"
+     title="Telegram"
+     aria-label="Telegram">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9.7 14.6 9.5 18c.5 0 .7-.2 1-.5l2.4-2.3 5 3.7c.9.5 1.6.2 1.8-.9l3.2-15c.3-1.4-.5-2-1.7-1.6L2.1 9.1c-1.3.5-1.3 1.2-.2 1.6l4.6 1.4L17.9 5c.5-.3 1-.1.6.2L9.7 14.6z"/>
+    </svg>
+  </a>
+
+  <!-- TikTok -->
+  <a class="iconbtn"
+     href="https://www.tiktok.com/@polarboi"
+     target="_blank"
+     rel="noopener noreferrer"
+     title="TikTok"
+     aria-label="TikTok">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12.7 2h3.1c.1 1.1.6 2.2 1.4 3.1.9.9 2 1.3 3.1 1.4v3.1c-1.9 0-3.7-.6-5.2-1.7v6.4c0 3.3-2.7 6-6 6s-6-2.7-6-6 2.7-6 6-6c.3 0 .7 0 1 .1v3.3c-.3-.1-.6-.2-1-.2-1.6 0-2.9 1.3-2.9 2.9s1.3 2.9 2.9 2.9 2.9-1.3 2.9-2.9V2z"/>
+    </svg>
+  </a>
+
+  <button class="btn pulse" id="buyBtnTop">BUY $POLARBOIv2</button>
+</div>
+
+      
+    </div>
+
+    <!-- HERO -->
+    <header class="hero" id="top">
+      <div class="hero-inner">
+        <div>
+          <h1 class="title wiggle">💎POLARBOI</h1>
+          <p class="subtitle">Unbothered on Solana</p>
+
+          <p class="hero-copy">
+  No roadmap hype.<br>
+  No fake urgency.<br>
+  Just a very cold bear.
+</p>
+
+          <div class="cta-row">
+            <button class="btn" id="buyBtnHero">BUY $POLARBOIv2</button>
+            <button class="btn ghost" id="chartBtn">CHART</button>
+          </div>
+
+   <div class="pill" id="heroContractPill" role="button" tabindex="0">
+  <span>CONTRACT:</span>
+  <span class="mono" id="heroCaText">COMING SOON</span>
+  <button class="copy" id="heroCopyBtn">Copy</button>
+
+</div>
+
+<script>
+  const CONTRACT_ADDRESS = ""; // pane siia hiljem päris CA
+
+  const contractBtn = document.getElementById("contractCopy");
+  const contractValueEl = document.getElementById("contractValue");
+
+  function setContractUI(){
+    if(CONTRACT_ADDRESS && CONTRACT_ADDRESS.trim().length > 0){
+      const ca = CONTRACT_ADDRESS.trim();
+      contractValueEl.textContent = ca.slice(0,6) + "..." + ca.slice(-4);
+      contractBtn.title = "Click to copy";
+    }else{
+      contractValueEl.textContent = "COMING SOON";
+      contractBtn.title = "Contract not live yet";
+    }
+  }
+
+  setContractUI();
+
+  contractBtn.addEventListener("click", async () => {
+    if(!CONTRACT_ADDRESS || CONTRACT_ADDRESS.trim().length === 0){
+      toast("Contract coming soon 🧊");
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(CONTRACT_ADDRESS.trim());
+      toast("Contract copied ✅");
+    }catch(e){
+      toast("Copy failed 😅");
+    }
+  });
+</script>
+
+
+        </div>
+
+        <div class="hero-art">
+          <img src="assets/hero.png" alt="Mascot / hero art" />
+        </div>
+      </div>
+    </header>
+
+<section class="section" id="latest">
+  <div class="section-hd">
+    <h2 class="h2">LATEST POLARBOI POSTS</h2>
+    <p class="hint">Fresh takes straight from X. No filters. No mercy.</p>
+  </div>
+
+ <div class="x-wrap">
+  <a class="twitter-timeline"
+     href="https://x.com/polarboi_meme"
+     data-theme="dark"
+     data-height="520">
+    Tweets by @polarboi_meme
+  </a>
+</div>
+
+<div class="x-fallback">
+  <p>X is being dramatic right now.  
+Tap below for the real feed 👇</p>
+  <a class="btn" href="https://x.com/polarboi_meme" target="_blank" rel="noopener">
+    VIEW ON X
+  </a>
+</div>
+
+</section>
+
+
+    <!-- LEGEND -->
+    <section class="section" id="legend">
+      <div class="section-hd">
+        <h2 class="h2">THE LEGEND OF POLARBOI</h2>
+        <p class="hint"> If the meme is good, the community does the rest. 👑🧊</p>
+      </div>
+
+      <div class="cards">
+        <a class="card"
+   href="https://x.com/polarboi_meme/status/2015167198659010872/photo/1"
+   target="_blank"
+   rel="noopener noreferrer">
+
+  <div class="card-media">
+    <img src="assets/scene1.jpg" alt="From the Arctic to the Moon">
+  </div>
+
+  <div class="card-bd">
+    <h3 class="card-title">FROM THE ARCTIC TO THE MOON</h3>
+    <p class="card-text">Financial advice from Polarboi 👑</p>
+    <span class="tag">View on X →</span>
+  </div>
+
+</a>
+
+       <a class="card"
+   href="https://x.com/polarboi_meme/status/2015512151570485673?s=20"
+   target="_blank"
+   rel="noopener noreferrer">
+
+  <div class="card-media">
+    <img src="assets/scene2.jpg" alt="From the Arctic to the Moon">
+  </div>
+
+  <div class="card-bd">
+    <h3 class="card-title">PART I 
+  - 𝘉𝘦𝘧𝘰𝘳𝘦 𝘩𝘦 𝘬𝘯𝘦𝘸 𝘸𝘩𝘺 𝘩𝘦 𝘸𝘢𝘴 𝘥𝘪𝘧𝘧𝘦𝘳𝘦𝘯𝘵</h3>
+    <p class="card-text">How polarboi was born</p>
+    <span class="tag">View on X →</span>
+  </div>
+
+</a>
+
+        <a class="card card--dense"
+   href="https://x.com/polarboi_meme/status/2013519947436056773?s=20"
+   target="_blank"
+   rel="noopener noreferrer">
+
+  <div class="card-media">
+    <img src="assets/scene3.jpg" alt="Launch giveaway">
+  </div>
+
+  <div class="card-bd">
+    <h3 class="card-title">Launch giveaway!</h3>
+    <p class="card-text">POLARBOI v2 · FEB 2</p>
+    <span class="tag">View on X →</span>
+  </div>
+
+</a>
+      </div>
+    </section>
+
+ <!-- TOKENOMICS -->
+<section class="section" id="tokenomics">
+  <div class="section-hd">
+    <h2 class="h2">TOKENOMICS</h2>
+    <p class="hint">Simple by design. Nothing hidden.</p>
+  </div>
+
+      <div style="padding:0 18px 18px;">
+    <div class="stats-grid">
+
+<div class="stat">
+          <small>Total Supply</small>
+          <b>1,000,000,000 (1B)</b>
+        </div>
+
+        <div class="stat">
+          <small>Taxes</small>
+          <b>0% Buy · 0% Sell</b>
+        </div>
+
+        <div class="stat">
+          <small>Liquidity</small>
+          <b>Locked 🔒</b>
+        </div>
+
+        <div class="stat">
+          <small>Contract</small>
+          <b>Renounced ❄️</b>
+        </div>
+
+        <div class="stat">
+          <small>Allocation</small>
+          <b>93% Community · 7% Dev </b>
+        </div>
+
+        <div class="stat">
+          <small>Minting</small>
+          <b>No new tokens. Ever.</b>
+        </div>
+<p class="hint">Creator rewards → recycled into growth</p>
+</div>
+  </div>
+</section>
+
+ <!-- ROADMAP -->
+<section class="section" id="roadmap">
+  <div class="section-hd">
+    <h2 class="h2">ROADMAP</h2>
+    <p class="hint">Short promises + big visuals. Less text means more meme clarity.</p>
+  </div>
+
+  <div style="padding:0 18px 18px;">
+
+    <div class="roadamp-flat">
+<div class="rm-item">
+          <h3>POLARBOI V1 <span class="done"></span></h3>
+          <ul>
+            <li>Socials live (TikTok, X, Telegram) ✅</li>
+            <li>First meme drops ✅</li>
+            <li>Polarboi v1 launch ✅</li>
+            <li>Organic community forming ⏳</li>
+            <li>Archive the first era ⏳</li>
+            <li>Canon established (what Polarboi is &amp; isn’t) ⏳</li>
+          </ul>
+</div>
+      
+<div class="rm-item">
+          <h3>POLARBOI V2 <span class="done"></span></h3>
+          <ul>
+            <li>Official website live ✅</li>
+            <li>Visual identity locked (bear, crown, tone) ✅</li>
+            <li>First giveaway (attention grab) ⏳</li>
+            <li>Second giveaway (reach expansion) ⏳</li>
+            <li>Polarboi v2 launch ⏳</li>
+            <li>Liquidity locked &amp; contract renounced ⏳</li>
+          </ul>
+          <p class="road-note"><b>No noise. Just temperature.</b></p>
+    </div>
+
+<div class="rm-item">
+            <h3>MOON MISSION <span class="done"></span></h3>
+          <ul>
+            <li>CEX outreach ⏳</li>
+            <li>Strategic listings ⏳</li>
+            <li>Global meme distribution ⏳</li>
+            <li>Unexpected partnerships ⏳</li>
+            <li>Unexplained Polarboi sightings across CT ⏳</li>
+          </ul>
+      </div>
+
+<div class="rm-item">
+          <h3>BEYOND THE STARS<span class="done"></span></h3>
+          <ul>
+            <li>Limited merch drops ❄️</li>
+            <li>IRL meme events ⏳</li>
+            <li>Community-led creations ⏳</li>
+            <li>Experimental drops ⏳</li>
+            <li>Polarboi becomes culture ⏳</li>
+          </ul>
+          <p class="road-note"><b>Plans change. The cold remains.</b></p>
+   </div>
+
+  </div>
+</section>
+
+
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="section-hd">
+        <h2 class="h2">FAQ</h2>
+        <p class="hint">Quick answers for people who don’t read.</p>
+      </div>
+
+      <div style="padding:0 18px 18px; display:grid; gap:10px;">
+
+<details style="border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(10,8,30,.18);padding:12px 14px;">
+          <summary style="cursor:pointer;font-weight:900;">Is this financial advice❓</summary>
+          <p style="margin:10px 0 0;color:rgba(235,245,255,.88);font-weight:650;line-height:1.5;">
+            No. This is a meme coin. If you’re looking for financial advice, you’re in the wrong igloo.</p>
+        </details>
+
+        <details style="border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(10,8,30,.18);padding:12px 14px;">
+          <summary style="cursor:pointer;font-weight:900;">Does this token have utility❓</summary>
+          <p style="margin:10px 0 0;color:rgba(235,245,255,.88);font-weight:650;line-height:1.5;">
+           Utility = memes, vibes, and community energy. Anything else is a bonus.</p>
+        </details>
+
+<details style="border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(10,8,30,.18);padding:12px 14px;">
+          <summary style="cursor:pointer;font-weight:900;">Who is the team❓</summary>
+          <p style="margin:10px 0 0;color:rgba(235,245,255,.88);font-weight:650;line-height:1.5;">There is no “team”. Only Polarboi and the community.</p>
+        </details>
+
+<details style="border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(10,8,30,.18);padding:12px 14px;">
+          <summary style="cursor:pointer;font-weight:900;">Is liquidity locked and the contract safe❓</summary>
+          <p style="margin:10px 0 0;color:rgba(235,245,255,.88);font-weight:650;line-height:1.5;">
+            Yes. Liquidity is locked and the contract is renounced. Details are public and verifiable..</p>
+        </details>
+
+<details style="border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(10,8,30,.18);padding:12px 14px;">
+          <summary style="cursor:pointer;font-weight:900;">How does this go viral❓</summary>
+          <p style="margin:10px 0 0;color:rgba(235,245,255,.88);font-weight:650;line-height:1.5;">
+            Good memes spread themselves.The community does the rest.</p>
+        </details>
+
+<details style="border-radius:18px;border:1px solid rgba(255,255,255,.10);background:rgba(10,8,30,.18);padding:12px 14px;">
+          <summary style="cursor:pointer;font-weight:900;">What’s the roadmap❓</summary>
+          <p style="margin:10px 0 0;color:rgba(235,245,255,.88);font-weight:650;line-height:1.5;">
+            Memes → community → chaos → maybe the moon. In that order.</p>
+        </details>
+
+      </div>
+    </section>
+
+    <!-- FOOTER CTA -->
+    <section class="cta">
+      <div class="cta-inner">
+        <h3 class="cta-title">JOIN THE POLARBOI REVOLUTION!</h3>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <button class="btn pulse" id="buyBtnFooter">BUY $POLARBOIv2</button>
+          <button class="btn ghost" id="shareBtn">SHARE THIS</button>
+        </div>
+      </div>
+      <div class="fine">
+        ⚠️ This is a meme coin with no intrinsic value or expectation of financial return.
+Do your own research and don’t risk money you can’t afford to lose.
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Parallax background
+    const bg = document.getElementById('bg');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY || 0;
+      bg.style.transform = `translate3d(0, ${y * 0.08}px, 0) scale(1.05)`;
+    }, { passive: true });
+
+    // Buttons (replace with real links)
+    const go = (url) => window.open(url, '_blank', 'noopener,noreferrer');
+
+// === BUY LINK (update after launch) ===
+const BUY_URL = ""; 
+// nt: https://pump.fun/coin/XXXX
+// nt: https://raydium.io/swap/?inputCurrency=...
+
+
+    document.getElementById('chartBtn').addEventListener('click', () => toast("Chart link siia 📈"));
+
+   const buy = () => {
+  confettiBurst();
+
+  if (BUY_URL && BUY_URL.length > 0) {
+    toast("Redirecting to buy 🧊");
+    setTimeout(() => go(BUY_URL), 400);
+  } else {
+    toast("Trading opens after launch ❄️");
+  }
+};
+
+
+
+   document.getElementById('buyBtnTop')?.addEventListener('click', () => buy("top"));
+document.getElementById('buyBtnHero')?.addEventListener('click', () => buy("hero"));
+document.getElementById('buyBtnRoad')?.addEventListener('click', () => buy("road")); // ok isegi kui puudub
+document.getElementById('buyBtnFooter')?.addEventListener('click', () => buy("footer"));
+
+
+    document.getElementById('shareBtn').addEventListener('click', async () => {
+      const text = "Check this meme landing 👑❄️";
+      const url = location.href;
+      try{
+        if (navigator.share) await navigator.share({ title: "POLARBOI", text, url });
+        else {
+          await navigator.clipboard.writeText(url);
+          toast("Link copied 🔗");
+        }
+      }catch(e){
+        toast("Share cancelled 🙂");
+      }
+    });
+
+    // Toast
+    let toastTimer;
+    function toast(msg){
+      let el = document.getElementById('toast');
+      if(!el){
+        el = document.createElement('div');
+        el.id = 'toast';
+        el.style.position = 'fixed';
+        el.style.left = '50%';
+        el.style.bottom = '22px';
+        el.style.transform = 'translateX(-50%)';
+        el.style.padding = '12px 14px';
+        el.style.borderRadius = '14px';
+        el.style.background = 'rgba(10,8,30,.75)';
+        el.style.border = '1px solid rgba(255,255,255,.12)';
+        el.style.backdropFilter = 'blur(10px)';
+        el.style.color = 'rgba(245,250,255,.95)';
+        el.style.fontWeight = '900';
+        el.style.boxShadow = '0 18px 45px rgba(0,0,0,.35)';
+        el.style.zIndex = 9999;
+        document.body.appendChild(el);
+      }
+      el.textContent = msg;
+      el.style.opacity = '1';
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => { el.style.opacity = '0'; }, 1800);
+    }
+
+    // Tiny confetti (no libs)
+    function confettiBurst(){
+      const n = 22;
+      for(let i=0;i<n;i++){
+        const p = document.createElement('div');
+        p.style.position = 'fixed';
+        p.style.left = (window.innerWidth/2 + (Math.random()*140-70)) + 'px';
+        p.style.top = (window.innerHeight/2 + (Math.random()*40-20)) + 'px';
+        p.style.width = (6 + Math.random()*6) + 'px';
+        p.style.height = (6 + Math.random()*10) + 'px';
+        p.style.borderRadius = '3px';
+        p.style.background = `hsl(${Math.random()*360}, 90%, 70%)`;
+        p.style.zIndex = 9998;
+        p.style.pointerEvents = 'none';
+        document.body.appendChild(p);
+
+        const dx = (Math.random()*2-1) * 220;
+        const dy = - (160 + Math.random()*220);
+        const rot = (Math.random()*2-1) * 540;
+        const dur = 650 + Math.random()*450;
+
+        p.animate([
+          { transform:`translate(0,0) rotate(0deg)`, opacity:1 },
+          { transform:`translate(${dx}px, ${dy}px) rotate(${rot}deg)`, opacity:0 }
+        ], { duration: dur, easing:'cubic-bezier(.2,.7,.2,1)', fill:'forwards' });
+
+        setTimeout(() => p.remove(), dur + 50);
+      }
+    }
+  </script>
+
+  <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+</body>
+</html>
