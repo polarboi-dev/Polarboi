@@ -577,7 +577,7 @@ list-style:none;
 }
 
 #roadmap .steps{
-  max-width: 980px;   /* proovi 900–1040 */
+  max-width: 980px;   
   margin: 0 auto;
 }
 
@@ -586,33 +586,29 @@ list-style:none;
     transform: none;
   }
 }
-/* kogu roadmapi kaart center */
 #roadmap .step{
   text-align: center;
 }
 
-/* pealkiri */
 #roadmap .step b{
   display: block;
   margin-bottom: 10px;
   text-align: center;
 }
 
-/* list ise jääb vasakule (parem loetavus) */
 #roadmap .step ul{
   text-align: left;
-  display: inline-block; /* optiline keskjoondus */
+  display: inline-block; 
   margin: 0 auto;
 }
 
-/* listi read */
 #roadmap .step li{
   text-align: left;
 }
 /* ===== ROADMAP (clean) ===== */
 
 #roadmap .steps{
-  /* tee steps lihtsalt konteineriks (mitte eraldi “kaart”) */
+
   background: transparent;
   border: none;
   box-shadow: none;
@@ -626,12 +622,12 @@ list-style:none;
   align-items: start;
 }
 
-/* zig-zag: parempoolne veerg natuke allapoole */
+
 #roadmap .step:nth-child(even){
   margin-top: 18px;
 }
 
-/* kaartide stiil */
+
 #roadmap .step{
   background: rgba(10, 8, 30, .32);
   border: 1px solid rgba(255,255,255,.14);
@@ -639,17 +635,17 @@ list-style:none;
   padding: 18px;
   border-radius: 16px;
 
-  text-align: center; /* pealkiri keskel */
+  text-align: center; 
 }
 
-/* pealkiri */
+
 #roadmap .step b{
   display: block;
   font-size: 16px;
   margin-bottom: 12px;
 }
 
-/* list optiliselt keskele, aga loetavus left */
+
 #roadmap .step ul{
   list-style: none;
   padding: 0;
@@ -666,7 +662,7 @@ list-style:none;
   color: rgba(245,250,255,.92);
 }
 
-/* õrn dash */
+
 #roadmap .step li::before{
   content: "—";
   position: absolute;
@@ -674,20 +670,20 @@ list-style:none;
   opacity: .45;
 }
 
-/* note read */
+
 #roadmap .road-note{
   margin-top: 12px;
   opacity: .75;
 }
 
-/* mobile: üks veerg */
+
 @media (max-width: 900px){
   #roadmap .steps{ grid-template-columns: 1fr; }
   #roadmap .step:nth-child(even){ margin-top: 0; }
 }
 
 
-
+Kuhu 
 
     /* FOOTER CTA */
     .cta{
@@ -1245,6 +1241,28 @@ Tap below for the real feed 👇</p>
   </div>
 </section>
 
+<!-- MISSION -->
+<section class="section" id="mission">
+  <div class="section-hd">
+    <h2 class="h2">WHY POLARBOI EXISTS</h2>
+    <p class="hint">
+      Polarboi isn’t just a meme.
+      A portion of this project is dedicated to supporting polar bear conservation.
+    </p>
+  </div>
+
+  <div style="padding:0 18px 18px; text-align:center;">
+    <p style="max-width:70ch;margin:0 auto;color:rgba(235,245,255,.9);font-weight:650;line-height:1.55;">
+      As the community grows, we plan to donate to verified organizations focused on
+      protecting polar bears and Arctic habitats.
+      <br><br>
+      No empty promises.
+      Proof of donations will be shared publicly on X.
+    </p>
+  </div>
+</section>
+
+    
  <!-- ROADMAP -->
 <section class="section" id="roadmap">
   <div class="section-hd">
