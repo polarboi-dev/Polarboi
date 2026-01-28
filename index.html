@@ -895,8 +895,46 @@ list-style:none;
 
 
 @media (max-width: 768px){
-  body {
-    background: red !important;
+
+  /* 1) stop: ära lase lehel horisontaalselt nihkuda */
+  html, body{
+    width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* 2) kõige olulisem: wrapper peab olema keskelt ja täislai */
+  .wrap{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 3) HERO: tee mobiilis alati column + center */
+  .hero{
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .subtitle{
+    margin-left: 0 !important;
+  }
+
+  .hero-art{
+    width: 100% !important;
+    display: grid !important;
+    place-items: center !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-art img{
+    margin: 0 auto !important;
+    display: block !important;
+    animation: floaty 4.8s ease-in-out infinite !important;
   }
 }
 
