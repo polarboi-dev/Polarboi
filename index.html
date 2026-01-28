@@ -288,16 +288,23 @@
   margin-top: -5px;
 }
 
+    @keyframes floaty{
+  0%,100%{ transform: translateY(-30px) rotate(-.3deg); }
+  50%{ transform: translateY(-40px) rotate(.5deg); }
+}
+    
 .hero-art img{
   width: min(270px, 100%);
   height: auto;
-  margin-right: 0;                 /* mobiilis keskel */
+  margin-right: 0;
   filter: drop-shadow(0 24px 50px rgba(0,0,0,.45));
   transform-origin: 60% 80%;
+}
+
+.floaty{
   animation: floaty 4.8s ease-in-out infinite;
 }
 
-/* desktopis nihutame tagasi */
 @media (min-width: 931px){
   .hero-art{
     place-items: end;
