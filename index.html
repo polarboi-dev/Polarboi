@@ -729,14 +729,38 @@ list-style:none;
     }
 
     /* Responsive */
-    @media (max-width: 930px){
-      .hero-inner{ grid-template-columns: 1fr; }
-      .hero-art{ height:auto; place-items:center; padding-bottom: 8px; }
-      .cards{ grid-template-columns: 1fr; }
-      .road{ grid-template-columns: 1fr; }
-      .actions{ min-width: auto; }
-      .brand{ min-width:auto; }
-    }
+   @media (max-width: 930px){
+  .hero-inner{ grid-template-columns: 1fr; }
+  .hero-art{ height:auto; place-items:center; padding-bottom: 8px; }
+  .cards{ grid-template-columns: 1fr; }
+  .road{ grid-template-columns: 1fr; }
+  .actions{ min-width: auto; }
+  .brand{ min-width:auto; }
+
+  /* TOP BAR mobile fix */
+  .top{
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  .brand,
+  .nav,
+  .actions{
+    width: 100%;
+    justify-content: center;
+  }
+  .contract-pill{
+    margin-left: 0;
+    max-width: 100%;
+  }
+  .contract-value{
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
 
 .x-wrap{
   padding: 14px 18px 18px;
