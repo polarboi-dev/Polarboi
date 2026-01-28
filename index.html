@@ -816,7 +816,6 @@ list-style:none;
   padding: 8px 0 6px;
 }
 
-/* keskjoon */
 #roadmap .roadmap-flat::before{
   content:"";
   position:absolute;
@@ -828,7 +827,6 @@ list-style:none;
   background: rgba(255,255,255,.14);
 }
 
-/* üks “plokk” */
 #roadmap .rm-item{
   width: min(520px, 100%);
   margin: 18px auto;
@@ -838,16 +836,20 @@ list-style:none;
   background: rgba(10, 8, 30, .18);
   box-shadow: 0 18px 45px rgba(0,0,0,.22);
 }
-
-/* zig-zag nihked ümber keskjoone */
-#roadmap .rm-item:nth-child(odd){
-  transform: translateX(-140px);
-}
-#roadmap .rm-item:nth-child(even){
-  transform: translateX(140px);
+    
+#roadmap .rm-item{
+  transform: none;
 }
 
-/* pealkiri + list */
+@media (min-width: 901px){
+  #roadmap .rm-item:nth-child(odd){
+    transform: translateX(-140px);
+  }
+  #roadmap .rm-item:nth-child(even){
+    transform: translateX(140px);
+  }
+}
+
 #roadmap .rm-item h3{
   margin: 0 0 10px;
   font-size: 16px;
@@ -859,7 +861,7 @@ list-style:none;
 
 #roadmap .rm-item ul{
   margin: 0;
-  padding-left: 18px; /* jätab bulletid viisakaks */
+  padding-left: 18px; 
 }
 
 #roadmap .rm-item li{
