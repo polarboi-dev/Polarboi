@@ -1504,8 +1504,16 @@ document.getElementById('buyBtnFooter')?.addEventListener('click', () => buy("fo
       }
     }
   </script>
-
+  
   <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<script>
+  window.addEventListener("load", () => {
+    if (window.twttr && twttr.widgets) {
+      twttr.widgets.load(document.querySelector(".x-wrap"));
+    }
+  });
+</script>
 
 <script>
   window.addEventListener("load", () => {
