@@ -985,6 +985,59 @@ Kuhu
   margin-top: 18px;
 }
 
+    /* ===== HERO → MANIFEST BRIDGE ===== */
+
+
+.hero{
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+
+#manifest{
+  margin-top: 14px; 
+  position: relative;
+  overflow: hidden;
+}
+
+
+#manifest::before{
+  content:"";
+  position:absolute;
+  left:-10%;
+  right:-10%;
+  top:-30px;
+  height: 120px;
+  background: radial-gradient(700px 140px at 50% 0%,
+              rgba(120,190,255,.22), transparent 70%);
+  pointer-events:none;
+  z-index:0;
+  filter: blur(0.2px);
+}
+
+
+#manifest .section-hd,
+#manifest .manifest-wrap{
+  position: relative;
+  z-index: 1;
+}
+
+    /* õrn vertikaalne joon, mis jookseb hero lõpu → manifest alguse vahel */
+.hero::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-26px;
+  width: 1px;
+  height: 52px;
+  transform: translateX(-.5px);
+  background: rgba(255,255,255,.14);
+  opacity: .65;
+  pointer-events:none;
+}
+
+    
+
 
 
   </style>
@@ -1068,11 +1121,11 @@ Kuhu
           <h1 class="title wiggle">💎POLARBOI</h1>
           <p class="subtitle">Unbothered on Solana</p>
 
-          <p class="hero-copy">
-  Built by the community <br>
-  for polar bears..<br>
-
+    <p class="hero-copy">
+  A meme for those who stay. <br>
+  No hype. Just ice.
 </p>
+>
 
           <div class="cta-row">
             <button class="btn" id="buyBtnHero">BUY $POLARBOIv2</button>
