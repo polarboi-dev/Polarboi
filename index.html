@@ -282,12 +282,13 @@
 
    .hero-art{
   position: absolute;
-  right: -10%;
+  right: -8%;
   bottom: -18%;
-  width: 68%;
+  width: 62%;
   height: auto;
   display: block;
   pointer-events: none;
+  z-index: 1
 }
 
 
@@ -301,7 +302,22 @@
   max-width: none;
   height: auto;
   filter: drop-shadow(0 30px 70px rgba(0,0,0,.45));
+
+  /* 🔽 see on “2.” */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 70%,
+    rgba(0,0,0,0) 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) 70%,
+    rgba(0,0,0,0) 100%
+  );
 }
+
 
 
 .floaty{
