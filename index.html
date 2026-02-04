@@ -1189,6 +1189,27 @@ Kuhu
   });
 </script>
 
+          <script>
+  // ...your existing code above...
+
+  const heroCopyBtn = document.getElementById("heroCopyBtn");
+
+  heroCopyBtn?.addEventListener("click", async (e) => {
+    e.stopPropagation(); // prevents any parent click logic from interfering
+    if(!CONTRACT_ADDRESS || CONTRACT_ADDRESS.trim().length === 0){
+      toast("Contract not live yet 🧊");
+      return;
+    }
+    try{
+      await navigator.clipboard.writeText(CONTRACT_ADDRESS.trim());
+      toast("Contract copied ✅");
+    }catch(err){
+      toast("Copy failed 😅");
+    }
+  });
+</script>
+
+
 
         </div>
 
